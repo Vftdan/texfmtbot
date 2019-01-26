@@ -1,3 +1,4 @@
+#! /usr/bin/env python3
 from telebot import TeleBot, apihelper
 from telebot.types import InlineQueryResultArticle as IQRA
 from telebot.types import InputTextMessageContent as ITMC
