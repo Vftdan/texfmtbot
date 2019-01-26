@@ -193,4 +193,5 @@ def tex2html(src, nocombine=False):
         runhandler(_eschtml(c))
     while len(states):
         popstate()
+    allclose()
     return ''.join(res)
