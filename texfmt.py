@@ -86,12 +86,16 @@ def tex2html(src, nocombine=False):
         def newhandler(txt):
             #allclose()
             runhandler('<a href="{0}">{1}</a>'.format(href, txt))
-            #allopen()
-            #popstate()
-        #allclose()
-        #pushstate()
+            if nocombine:
+                allopen()
+                popstate()
+                allclose()
+        if nocombine:
+            allopen()
+            pushstate()
+            runmacro('rm')
+            allclose()
         handler = newhandler
-        #allopen()
     def runmacro(m):
         nonlocal handler, flag_it, flag_bf, flag_tt
         if m == 'it' or m == 'sl':
