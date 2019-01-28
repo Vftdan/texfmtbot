@@ -17,7 +17,27 @@ def Constant(c):
 def stripcmd(txt):
     if txt == '' or txt[0] != '/':
         return txt
-    return ' '.join(txt.split(' ')[1:])
+    txt = list(txt.split('\n'))
+    txt[0] = ' '.join(txt[0].split(' ')[1:])
+    return '\n'.join(txt)
+
+def mdsrc(msg):
+    res = []
+    last = 0
+    for ent in msg.entities:
+        start = ent.offset
+        end = start + ent.length
+        res.append(msg.text[last:start])
+        last = end
+        s = {
+                'bold': '**{0}**',
+                'italic': '__{0}__',
+                'code': '`{0}`',
+                'pre': '```{0}```',
+                }.get(ent.type, '{0}').format(msg.text[start:end])
+        res.append(s)
+    res.append(msg.text[last:])
+    return ''.join(res)
 
 def nohtml(html):
     ents = {'lt': '<', 'gt': '>', 'amp': '&', 'quot': '"'}
@@ -51,7 +71,7 @@ def nohtml(html):
 def texcmd(msg):
     try:
         try:
-            bot.reply_to(msg, tex2html(stripcmd(msg.text), True), parse_mode='HTML')
+            bot.reply_to(msg, tex2html(stripcmd(mdsrc(msg)), True), parse_mode='HTML')
         except TexException as e:
             bot.reply_to(msg, str(e))
         except BaseException as e:
