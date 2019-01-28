@@ -24,8 +24,6 @@ class TexException(BaseException):
 texchars = _json.load(open('texchars.json'))
 
 def _eschtmlchar(c):
-    if c == '\n':
-        return '<br />'
     if c == '&':
         return '&amp;'
     if c == '<':
