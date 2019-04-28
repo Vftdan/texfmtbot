@@ -1,0 +1,6 @@
+{
+	"key": "000000000:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+	"proxy": {
+		"https": "socks5://127.0.0.1:9050"
+	}
+}
